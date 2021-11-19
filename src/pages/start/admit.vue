@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import store from '../../store/'
 export default {
   name: 'admit',
   inject: ['reload'],
@@ -51,6 +52,7 @@ export default {
               h('i', { style: 'color: teal' }, '正确')
             ])
           })
+          store.dispatch('user/fetchUserInfo')
           this.$router.push('/start/choose')
         } else {
           const h = this.$createElement

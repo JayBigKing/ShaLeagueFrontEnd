@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-<!--    -&#45;&#45;原来的&#45;&#45;-->
+    <!--    原来的-->
 <!--    <keep-alive :include="keepAliveComponents">-->
 <!--      <router-view />-->
 <!--    </keep-alive>-->
-<!--    -&#45;&#45;原来的&#45;&#45;-->
+    <!--    原来的-->
     <router-view v-if="isRouterAlive"></router-view>
 
   </div>
@@ -26,7 +26,7 @@ export default {
       isRouterAlive: true
     }
   },
-  computed: {
+  computed: { // 原来的
     ...mapState({
       keepAliveComponents: state => state.routecache.keepAliveComponents
     })

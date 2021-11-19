@@ -10,7 +10,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import Layout from '@/layouts/Layout'
-import logo from '@/assets/images/logo.png'
+import logo from '@/assets/images/logoSha.png'
 
 export default {
   name: 'Main',
@@ -30,6 +30,7 @@ export default {
       getSidebarList: 'sidebar/getSidebarList'
     }),
     sidebarList () {
+      console.log(this.userType)
       return this.getSidebarList(this.userType).main
     }
   },

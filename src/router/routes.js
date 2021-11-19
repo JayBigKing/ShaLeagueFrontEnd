@@ -51,27 +51,35 @@ const mainPage = [
       import(/* webpackChunkName: "Main" */ '../pages/main/Main'),
     children: [
       {
-        path: 'first',
-        name: 'first',
+        path: 'addPlayer',
+        name: 'addPlayer',
         component: () =>
             import(
-              /* webpackChunkName: "Second" */ '../pages/main/routes/first/First'
+              /* webpackChunkName: "Second" */ '../pages/main/routes/addPlayer/addPlayer'
             )
       },
       {
-        path: 'second/second',
-        name: 'second',
+        path: 'ViewOrRenew/view1',
+        name: 'view1',
         component: () =>
             import(
-              /* webpackChunkName: "First" */ '../pages/main/routes/second/Second'
+              /* webpackChunkName: "First" */ '../pages/main/routes/ViewOrRenew/view1'
             )
       },
       {
-        path: 'Book/BookList',
-        name: 'booklist',
+        path: 'ViewOrRenew/view2',
+        name: 'view2',
         component: () =>
             import(
-              /* webpackChunkName: "First" */ '../pages/main/routes/Book/BookList'
+              /* webpackChunkName: "First" */ '../pages/main/routes/ViewOrRenew/view2'
+            )
+      },
+      {
+        path: 'Rank/RankList',
+        name: 'RankList',
+        component: () =>
+            import(
+              /* webpackChunkName: "First" */ '../pages/main/routes/Rank/RankList'
             )
       }
     ]

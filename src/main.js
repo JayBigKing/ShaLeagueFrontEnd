@@ -13,7 +13,7 @@ import router from './router/'
 import store from './store/'
 
 import VueRouter from 'vue-router'
-import Routers from './router/routes'
+// import Routers from './router/routes'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
 
@@ -23,10 +23,10 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 Vue.use(ViewUI)
-const RouterConfig = {
-  routes: Routers
-}
-const router2 = new VueRouter(RouterConfig)
+// const RouterConfig = {
+//   routes: Routers
+// }
+// const router2 = new VueRouter(RouterConfig)
 
 var axios = require('axios')
 // axios.defaults.baseURL = 'http://localhost:7899'
@@ -42,8 +42,8 @@ new Vue({
   template: '<App/>'
 })
 
-new Vue({
-  el: '#app',
-  router: router2,
-  render: h => h(App)
-})
+// new Vue({
+//   el: '#app',
+//   router: router2,
+//   render: h => h(App)
+// })

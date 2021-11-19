@@ -1,25 +1,37 @@
 <template>
   <div class="choose">
-  <el-dropdown>
-  <span class="el-dropdown-link">
-    xiala<i class="el-icon-arrow-down el-icon--right"></i>
-  </span>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item>哈哈</el-dropdown-item>
-      <el-dropdown-item>黑欸</el-dropdown-item>
-      <el-dropdown-item>yeh</el-dropdown-item>
-      <el-dropdown-item disabled>你啊</el-dropdown-item>
-      <el-dropdown-item divided>天天</el-dropdown-item>
-    </el-dropdown-menu>
-  </el-dropdown>
-    <Button type="success">Success</Button>
-  <img :src="testImg"  style="width:100px; height:130px">
+    <div class="buttonList">
+      <div class="button1">
+    <Button type="success" size="large" v-on:click="toShaLeague()">杀超联赛</Button>
+      </div>
+    <Button type="info" size="large" v-on:click="toOthers()">其他Jay空间</Button>
+    </div>
   </div>
 </template>
 
 <script>
+import globalVar from '../../global'
+import { _getUserInfo } from '@api/user'
 export default {
   name: 'choose',
+  created () {
+    _getUserInfo().then(res => {
+      console.info(res)
+      if (res.data.id === globalVar.errorSessionId) {
+        this.$Notice.warning({
+          title: 'Notification title',
+          desc: 'Session 失效',
+          duration: 2
+        })
+        var timer
+        clearTimeout(timer) // 清除延迟执行
+
+        timer = setTimeout(() => { // 设置延迟执行
+        }, 1000)
+        this.$router.push('/start/admit')
+      }
+    })
+  },
   data () {
     return {
       activeName: '1',
@@ -27,19 +39,24 @@ export default {
     }
   },
   methods: {
-    haha (key) {
-      alert(key)
+    toShaLeague () {
+      this.$router.push('/main')
+    },
+    toOthers () {
+      this.$Message.warning('暂时没有')
     }
   }
 }
 </script>
 
 <style>
-.el-dropdown-link {
-  cursor: pointer;
-  color: #409EFF;
+.buttonList{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.el-icon-arrow-down {
-  font-size: 12px;
+.button1{
+  padding-bottom: 20px;
 }
 </style>

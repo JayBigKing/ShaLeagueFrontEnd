@@ -6,33 +6,33 @@ export default {
           groupTitle: '分组1'
         },
         {
-          path: '/main/first',
+          path: '/main/addPlayer',
           icon: 'suncaper-menu-unfold',
-          title: '一级菜单1'
+          title: '添加玩家'
         },
         {
-          path: '/main/second',
+          path: '/main/ViewOrRenew',
           icon: 'suncaper-menu-unfold',
-          title: '一级菜单2',
+          title: '查看/编辑玩家',
           group: 'second',
           children: [
             {
-              path: '/main/second/second',
+              path: '/main/ViewOrRenew/view1',
               icon: 'suncaper-menu-unfold',
-              title: '二级菜单'
+              title: '查看玩家'
             }
           ]
         },
         {
-          path: '/main/Book',
+          path: '/main/Rank',
           icon: 'suncaper-menu-unfold',
-          title: '图书',
-          group: 'Book',
+          title: '排名',
+          group: 'Rank',
           children: [
             {
-              path: '/main/Book/BookList',
+              path: '/main/Rank/RankList',
               icon: 'suncaper-menu-unfold',
-              title: '图书列表'
+              title: '积分榜'
             }
           ]
         }
