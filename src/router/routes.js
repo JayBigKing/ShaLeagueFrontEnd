@@ -81,6 +81,22 @@ const mainPage = [
             import(
               /* webpackChunkName: "First" */ '../pages/main/routes/Rank/RankList'
             )
+      },
+      {
+        path: 'addMatch/addMatchByManager',
+        name: 'addMatchByManager',
+        component: () =>
+            import(
+              /* webpackChunkName: "First" */ '../pages/main/routes/addMatch/addMatchByManager'
+            )
+      },
+      {
+        path: 'addMatch/addMatchByPlayer',
+        name: 'addMatchByPlayer',
+        component: () =>
+            import(
+              /* webpackChunkName: "First" */ '../pages/main/routes/addMatch/addMatchByPlayer'
+            )
       }
     ]
   }

@@ -35,6 +35,24 @@ export default {
               title: '积分榜'
             }
           ]
+        },
+        {
+          path: '/main/addMatch',
+          icon: 'suncaper-menu-unfold',
+          title: '添加比赛',
+          group: 'AddMatch',
+          children: [
+            {
+              path: '/main/addMatch/addMatchByManager',
+              icon: 'suncaper-menu-unfold',
+              title: '由管理员添加'
+            },
+            {
+              path: '/main/addMatch/addMatchByPlayer',
+              icon: 'suncaper-menu-unfold',
+              title: '由玩家添加'
+            }
+          ]
         }
 
       ]
