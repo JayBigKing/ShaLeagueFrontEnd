@@ -29,7 +29,16 @@ const startPage = [
   }
 
 ]
-
+const ShaLeagueOthers = [
+  {
+    path: '/playerAddMatch/addMatchFillRole',
+    name: 'addMatchFillRole',
+    component: () =>
+        import(
+          /* webpackChunkName: "First" */ '../pages/main/routes/addMatch/addMatchFillRole'
+        )
+  }
+]
 const loginPage = [
   {
     path: '/login',
@@ -97,14 +106,6 @@ const mainPage = [
             import(
               /* webpackChunkName: "First" */ '../pages/main/routes/addMatch/addMatchByPlayer'
             )
-      },
-      {
-        path: 'addMatch/addMatchFillRole',
-        name: 'addMatchFillRole',
-        component: () =>
-            import(
-              /* webpackChunkName: "First" */ '../pages/main/routes/addMatch/addMatchFillRole'
-            )
       }
     ]
   }
@@ -134,4 +135,4 @@ const errorPage = [
     redirect: '/notFound'
   }
 ]
-export default [...startPage, ...loginPage, ...mainPage, ...errorPage]
+export default [...startPage, ...ShaLeagueOthers, ...loginPage, ...mainPage, ...errorPage]

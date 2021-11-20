@@ -1,4 +1,5 @@
 <template>
+  <div class="theAMPos">
   <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
     <el-form-item
         v-for="(domain, index) in dynamicValidateForm.domains"
@@ -30,6 +31,7 @@
       <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
     </el-form-item>
   </el-form>
+  </div>
 </template>
 
 <script>
@@ -254,6 +256,11 @@ export default {
 </script>
 
 <style scoped>
+.theAMPos{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .theAddRole{
   display: flex;
   flex-direction: column;

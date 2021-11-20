@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="theV1AllPos">
     <Row>
       <Col span="12" style="padding-right:10px">
         <Select
@@ -11,7 +12,10 @@
         </Select>
       </Col>
     </Row>
+      <div class="theV1ButtonPos">
     <Button type="primary" icon="ios-search" v-on:click="searchThePlayer()">查询</Button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,3 +59,14 @@ export default {
 
 }
 </script>
+
+<style>
+.theV1AllPos{
+  margin-top: 60px;
+  margin-left: 450px;
+}
+.theV1ButtonPos{
+  padding-left: 170px;
+  padding-top: 30px;
+}
+</style>
