@@ -97,6 +97,14 @@ const mainPage = [
             import(
               /* webpackChunkName: "First" */ '../pages/main/routes/addMatch/addMatchByPlayer'
             )
+      },
+      {
+        path: 'addMatch/addMatchFillRole',
+        name: 'addMatchFillRole',
+        component: () =>
+            import(
+              /* webpackChunkName: "First" */ '../pages/main/routes/addMatch/addMatchFillRole'
+            )
       }
     ]
   }

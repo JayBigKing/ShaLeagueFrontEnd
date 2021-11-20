@@ -5,9 +5,6 @@
         :label="'玩家' + index"
         :key="domain.key"
         :prop="'domains.' + index + '.value'"
-        :rules="{
-      required: true, message: '域名不能为空', trigger: 'blur'
-    }"
     >
       <div class="theAddRole">
       <Select
@@ -42,20 +39,24 @@ export default {
   created () {
     this.remoteAddHelp('', 0)
     this.dynamicValidateForm.domains[0].theChoose = ''
+    this.dynamicValidateForm.domains[0].theResult = -1
+    this.dynamicValidateForm.domains[0].theResult = -1
   },
   data () {
     return {
       dynamicValidateForm: {
         domains: [{
-          value: '请选择玩家',
           options: [],
           theChoose: '',
-          theRole: 0,
-          theResult: 0,
+          theRole: -1,
+          theResult: -1,
           loading: false
         }]
       },
-      sendData: {},
+      sendData: {
+        winner: '',
+        roles: []
+      },
       roleList: [
         {
           value: 0,
@@ -88,27 +89,46 @@ export default {
   },
   methods: {
     submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          if (this.checkSame() !== true) {
-            console.log('error submit!!')
-            return false
-          } else if (this.sendDataProc() !== true) {
-            alert('submit')
-          } else {
-            this.$alert('这是一段内容', '标题名称', {
-              confirmButtonText: '确定',
-              callback: action => {}
+      if (this.checkAllFilled() === true) {
+        if (this.checkSame() !== true) {
+          this.$alert('错误：存在相同玩家！', '提交结果', {
+            confirmButtonText: '确定',
+            callback: action => ({
+              type: 'error',
+              message: `错误：存在相同玩家`
             })
-          }
+          })
+        } else if (this.sendDataProc() !== true) {
+          this.$alert('错误：比赛无胜者或无负者！', '提交结果', {
+            confirmButtonText: '确定',
+            callback: action => ({
+              type: 'error',
+              message: `错误：比赛无胜者或无负者！`
+            })
+          })
+        } else if (this.checkManNum() !== true) {
+          this.$alert('错误：人数不足！至少为2！', '提交结果', {
+            confirmButtonText: '确定',
+            callback: action => ({
+              type: 'error',
+              message: `错误：人数不足！至少为2！`
+            })
+          })
         } else {
-          console.log('error submit!!')
-          return false
+          this.postSendTheData()
         }
-      })
+      } else {
+        this.$alert('错误：未填完所有表格！', '提交结果', {
+          confirmButtonText: '确定',
+          callback: action => ({
+            type: 'error',
+            message: `错误：未填完所有表格！`
+          })
+        })
+      }
     },
     resetForm (formName) {
-      this.$refs[formName].resetFields()
+      // this.$refs[formName].resetFields()
     },
     removeDomain (item) {
       var index = this.dynamicValidateForm.domains.indexOf(item)
@@ -118,10 +138,11 @@ export default {
     },
     addDomain () {
       let tmpNewDomains = {}
-      tmpNewDomains.value = ''
       tmpNewDomains.options = []
       tmpNewDomains.theChoose = ''
-      tmpNewDomains.load = ''
+      tmpNewDomains.loading = false
+      tmpNewDomains.theRole = -1
+      tmpNewDomains.theResult = -1
       this.dynamicValidateForm.domains.push(
         tmpNewDomains
       )
@@ -138,44 +159,98 @@ export default {
       ).then(res => {
         this.dynamicValidateForm.domains[index].loading = false
         this.dynamicValidateForm.domains[index].options = res.data.data.data
-        console.info(this.dynamicValidateForm.domains[index].options[0])
       })
     },
     checkSame () {
-      let sets = new Set()
-      for (let i = 0; i < this.dynamicValidateForm.domains.length - 1; i++) {
-        if (sets.add(this.dynamicValidateForm.domains[i].theChoose.pid) === false) {
+      var sets = new Set()
+      for (let i = 0; i < this.dynamicValidateForm.domains.length; i++) {
+        if (sets.has(this.dynamicValidateForm.domains[i].theChoose.pid) === true) {
+          return false
+        } else {
+          sets.add(this.dynamicValidateForm.domains[i].theChoose.pid)
+        }
+      }
+      return true
+    },
+    checkAllFilled () {
+      for (let i = 0; i < this.dynamicValidateForm.domains.length; i++) {
+        if (this.dynamicValidateForm.domains[i].theChoose === addMatchConstVar.noInputChoose || this.dynamicValidateForm.domains[i].theRole === addMatchConstVar.noInputRoleOrResult ||
+        this.dynamicValidateForm.domains[i].theResult === addMatchConstVar.noInputRoleOrResult) {
           return false
         }
       }
       return true
     },
+    checkManNum () {
+      if (this.dynamicValidateForm.domains.length < 2) { return false } else { return true }
+    },
     sendDataProc () {
       var flagWin = false
-
-      for (let i = 0; i < this.dynamicValidateForm.domains.length - 1; i++) {
-        if (this.dynamicValidateForm.domains[i].theResult === 1) {
+      var flagLose = false
+      var allRoles = []
+      for (let i = 0; i < this.dynamicValidateForm.domains.length; i++) {
+        if (this.dynamicValidateForm.domains[i].theResult === addMatchConstVar.theWinNumMap) {
           this.sendData.winner = this.dynamicValidateForm.domains[i].theChoose.pid
           flagWin = true
-          break
+        }
+        if (this.dynamicValidateForm.domains[i].theResult === addMatchConstVar.theLoseNumMap) {
+          flagLose = true
         }
       }
-      if (flagWin === false) {
+      if (flagWin === false || flagLose === false) {
         return false
       } else {
-        for (let i = 0; i < this.dynamicValidateForm.domains.length - 1; i++) {
+        for (let i = 0; i < this.dynamicValidateForm.domains.length; i++) {
           let tmpRole = {}
           tmpRole.givenScore = addMatchConstVar.defaultGivenScore
           tmpRole.id = this.dynamicValidateForm.domains[i].theChoose.pid
           tmpRole.theRole = this.dynamicValidateForm.domains[i].theRole
           tmpRole.result = this.dynamicValidateForm.domains[i].theResult
-          this.sendData.push(tmpRole)
+          allRoles.push(tmpRole)
         }
+        this.sendData.roles = allRoles
+
         return true
+      }
+    },
+    postSendTheData () {
+      this.$axios.post('/api/matchSha', {
+        'winner': this.sendData.winner,
+        'roles': this.sendData.roles
+      }
+      ).then(res => {
+        this.sayingPostStatus(res.status, res.data.code)
+        var timer
+        clearTimeout(timer) // 清除延迟执行
+
+        timer = setTimeout(() => {
+          this.$router.go(0)// 设置延迟执行
+        }, 1500)
+      })
+    },
+    sayingPostStatus (status, code) {
+      if (status === 200) {
+        if (code === 200) {
+          this.$alert('新比赛添加成功', '提交结果', {
+            confirmButtonText: '确定',
+            callback: action => {}
+          })
+        }
+      } else {
+        this.$alert('错误：服务器错误！', '提交结果', {
+          confirmButtonText: '确定',
+          callback: action => ({
+            type: 'error',
+            message: `错误：服务器错误！`
+          })
+        })
       }
     }
   }
 }
+// :rules="{
+// required: true, message: '域名不能为空', trigger: 'blur'
+// }"
 </script>
 
 <style scoped>

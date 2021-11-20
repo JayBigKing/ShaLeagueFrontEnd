@@ -1,5 +1,5 @@
 export default {
-  whiteList: ['/', 'notFound', 'login', 'forbidden', 'badGateway', 'start', 'choose', 'admit', 'view2'],
+  whiteList: ['/', 'notFound', 'login', 'forbidden', 'badGateway', 'start', 'choose', 'admit', 'view2', 'addMatchFillRole'],
   permissionMap: {
     1: {
       main: ['*']
@@ -23,6 +23,9 @@ export default {
       main: ['*']
     },
     8: {
+      main: ['*']
+    },
+    9: {
       main: ['*']
     }
   }
