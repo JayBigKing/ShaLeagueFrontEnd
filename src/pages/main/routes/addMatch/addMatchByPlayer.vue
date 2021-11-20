@@ -27,7 +27,7 @@ export default {
       logoSrc: require('../../../../../static/images/logoSha/logoSha.png'),
       // bgSrc: require('../assets/img/bgSrc.png'),
       // http://localhost:9300/#/playerAddMatch/addMatchFillRole?mid=1461962241350893569&mdate=2021-11-20T15%3A38%3A54.9436882
-      codeUrl: addMatchConstVar.theIPandPort + '/playerAddMatch/addMatchFillRole?mid=' + this.theMid + '&mdate=' + this.theTime
+      codeUrl: addMatchConstVar.theIPandPort + 'playerAddMatch/addMatchFillRole?mid=' + this.theMid + '&mdate=' + this.theTime
     }
   },
   components: {
@@ -40,6 +40,7 @@ export default {
         this.theMid = res.data.data.mid
         this.theTime = res.data.data.mdate
         // this.$router.push({path: '/playerAddMatch/addMatchFillRole', query: {mid: this.theMid, mdate: this.theTime}})
+        this.codeUrl = addMatchConstVar.theIPandPort + 'playerAddMatch/addMatchFillRole?mid=' + this.theMid + '&mdate=' + this.theTime
         this.addNewFlag = true
       })
     }

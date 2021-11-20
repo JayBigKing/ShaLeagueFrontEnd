@@ -75,6 +75,7 @@ export default {
     this.$axios.get('/api/playerImage/getByPid/' + this.pid
     ).then(res => {
       this.userImg = globalVar.theUserImgFront + res.data.data.imgUrl
+      console.info(this.userImg)
     })
 
     this.$axios.get('/api/player/getDetail/' + this.pid
