@@ -1,6 +1,6 @@
-import Vue from '_vue@2.6.14@vue'
+// import Vue from '_vue@2.6.14@vue'
 
-// import Vue from 'vue'
+import Vue from 'vue'
 import {MessageBox} from 'element-ui'
 
 const defaultGivenScore = -1

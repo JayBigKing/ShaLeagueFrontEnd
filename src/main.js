@@ -17,6 +17,8 @@ import VueRouter from 'vue-router'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
 
+import './utils/rem'
+
 Vue.use(Vuebar)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
