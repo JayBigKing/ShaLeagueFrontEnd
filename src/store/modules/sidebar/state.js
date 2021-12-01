@@ -20,6 +20,11 @@ export default {
               path: '/main/ViewOrRenew/view1',
               icon: 'suncaper-menu-unfold',
               title: '查看玩家'
+            },
+            {
+              path: '/main/ViewOrRenew/renew1',
+              icon: 'suncaper-menu-unfold',
+              title: '修改信息'
             }
           ]
         },

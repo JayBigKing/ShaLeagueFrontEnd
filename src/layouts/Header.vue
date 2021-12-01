@@ -81,16 +81,16 @@ export default {
     display: inline-block;
   }
   .header-right {
-    font-size: 14px;
+    font-size: 18px;
     float: right;
     display: inline-block;
   }
 .header-title {
-  font-size: 14px;
+  font-size: 18px;
   margin-left: 10px;
 }
   .header-icon {
-    font-size: 22px;
+    font-size: 25px;
     color: inherit;
     outline: none;
     display: inline-block;
@@ -103,7 +103,7 @@ export default {
   .header-logout {
     .header-icon;
     .text-center;
-    font-size: 14px;
+    font-size: 18px;
     margin-left: 10px;
     line-height: normal;
     &:hover {

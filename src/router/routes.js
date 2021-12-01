@@ -84,6 +84,22 @@ const mainPage = [
             )
       },
       {
+        path: 'ViewOrRenew/renew1',
+        name: 'renew1',
+        component: () =>
+            import(
+              /* webpackChunkName: "First" */ '../pages/main/routes/ViewOrRenew/renew1'
+            )
+      },
+      {
+        path: 'ViewOrRenew/renew2',
+        name: 'renew2',
+        component: () =>
+            import(
+              /* webpackChunkName: "First" */ '../pages/main/routes/ViewOrRenew/renew2'
+            )
+      },
+      {
         path: 'Rank/RankList',
         name: 'RankList',
         component: () =>

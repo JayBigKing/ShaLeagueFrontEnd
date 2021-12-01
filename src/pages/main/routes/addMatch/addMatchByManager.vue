@@ -22,6 +22,9 @@
         <Select v-model="domain.theResult" style="width:200px">
           <Option v-for="item in resultList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
+        <Select v-model="domain.theMG" style="width:200px" filterable>
+          <Option v-for="item in MGList" :value="item.value" :key="item.value" >{{ item.label }}</Option>
+        </Select>
       </div>
       <el-button @click.prevent="removeDomain(domain)">删除</el-button>
     </el-form-item>
@@ -39,19 +42,22 @@ import addMatchConstVar from './addMatchConst'
 export default {
   name: 'addMatchByManager',
   created () {
-    this.remoteAddHelp('', 0)
+    this.remoteAddHelpPlus()
+    this.remoteMG('')
     this.dynamicValidateForm.domains[0].theChoose = ''
     this.dynamicValidateForm.domains[0].theResult = -1
     this.dynamicValidateForm.domains[0].theResult = -1
   },
   data () {
     return {
+      defaultNum: 6,
       dynamicValidateForm: {
         domains: [{
           options: [],
           theChoose: '',
           theRole: -1,
           theResult: -1,
+          theMG: '',
           loading: false
         }]
       },
@@ -86,7 +92,8 @@ export default {
           value: 1,
           label: '胜利'
         }
-      ]
+      ],
+      MGList: []
     }
   },
   methods: {
@@ -163,6 +170,37 @@ export default {
         this.dynamicValidateForm.domains[index].options = res.data.data.data
       })
     },
+    remoteMG (query) {
+      this.$axios.get('/api/militaryGeneral/byName', {params: {
+        name: query
+      }}
+      ).then(res => {
+        var tmp1 = res.data.data
+        for (let i = 0; i < tmp1.length; i++) {
+          let tmp2 = {}
+          tmp2.value = tmp1[i].mgid
+          tmp2.label = tmp1[i].mgname
+          this.MGList.push(tmp2)
+        }
+      })
+    },
+    remoteAddHelpPlus () {
+      for (let i = 0; i < this.defaultNum - 1; ++i) {
+        this.addDomain()
+      }
+      for (let i = 0; i < this.defaultNum; ++i) {
+        this.dynamicValidateForm.domains[i].loading = true
+      }
+      this.$axios.get('/api/player/getByName', {params: {
+        name: ''
+      }}
+      ).then(res => {
+        for (let i = 0; i < this.defaultNum; ++i) {
+          this.dynamicValidateForm.domains[i].loading = false
+          this.dynamicValidateForm.domains[i].options = res.data.data.data
+        }
+      })
+    },
     checkSame () {
       var sets = new Set()
       for (let i = 0; i < this.dynamicValidateForm.domains.length; i++) {
@@ -208,6 +246,7 @@ export default {
           tmpRole.id = this.dynamicValidateForm.domains[i].theChoose.pid
           tmpRole.theRole = this.dynamicValidateForm.domains[i].theRole
           tmpRole.result = this.dynamicValidateForm.domains[i].theResult
+          tmpRole.mgid = this.dynamicValidateForm.domains[i].theMG
           allRoles.push(tmpRole)
         }
         this.sendData.roles = allRoles

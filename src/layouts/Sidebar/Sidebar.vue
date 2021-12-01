@@ -2,12 +2,12 @@
   <div>
     <div id="sidebar-logo" class="sidebar-logo" :style="{backgroundColor: theme === 'light' ? '#ffffff' : '#1f2c35'}">
       <div class="sidebar-logo-png">
-      <img :src="logo.src" :alt="logo.alt" />
+      <img class="logoImg" :src="logo.src" :alt="logo.alt" />
       </div>
       <transition name="fade" :duration="300">
         <div v-if="!collapse" class="sidebar-logo-title">
-          <p>{{logo.firstDes}}</p>
-          <p>{{logo.secondDes}}</p>
+          <p class="logoTitle1">{{logo.firstDes}}</p>
+          <p class="logoTitle1">{{logo.secondDes}}</p>
         </div>
       </transition>
     </div>
@@ -103,3 +103,12 @@ export default {
 }
 
 </script>
+
+<style>
+.logoTitle1{
+  font-size: 18px;
+}
+.logoImg{
+
+}
+</style>
